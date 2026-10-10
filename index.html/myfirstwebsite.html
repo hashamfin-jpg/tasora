@@ -1,0 +1,2132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>TASORA — Your Day. Your Goals. Your Progress.</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+:root {
+    --bg: #070914;
+    --card: rgba(18, 21, 40, 0.86);
+    --text: #f7f8ff;
+    --muted: #9298b5;
+    --purple: #8b5cf6;
+    --cyan: #22d3ee;
+    --blue: #3b82f6;
+    --green: #34d399;
+    --red: #fb7185;
+    --border: rgba(255,255,255,0.09);
+    --shadow: 0 25px 80px rgba(0,0,0,0.45);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at 15% 15%, rgba(139,92,246,0.18), transparent 30%),
+        radial-gradient(circle at 85% 20%, rgba(34,211,238,0.12), transparent 28%),
+        radial-gradient(circle at 50% 100%, rgba(59,130,246,0.12), transparent 35%),
+        var(--bg);
+    color: var(--text);
+    font-family: "Inter", sans-serif;
+    overflow-x: hidden;
+}
+
+/* =========================
+   START SCREEN
+========================= */
+
+#setupScreen {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 25px;
+    position: relative;
+}
+
+.setup-card {
+    width: 100%;
+    max-width: 620px;
+    padding: 55px 48px;
+    border: 1px solid var(--border);
+    border-radius: 32px;
+    background: rgba(12,15,30,0.85);
+    backdrop-filter: blur(25px);
+    box-shadow: var(--shadow);
+    text-align: center;
+    animation: appear 0.7s ease;
+}
+
+.logo-small {
+    font-family: "Cinzel", serif;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 7px;
+    color: var(--cyan);
+    margin-bottom: 30px;
+}
+
+.big-logo {
+    font-family: "Cinzel", serif;
+    font-size: clamp(55px, 13vw, 105px);
+    font-weight: 800;
+    letter-spacing: 8px;
+    line-height: 1;
+
+    background: linear-gradient(
+        100deg,
+        #ffffff,
+        #9b7cff,
+        #22d3ee,
+        #ffffff
+    );
+
+    background-size: 300%;
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+
+    animation: gradientMove 5s infinite linear;
+}
+
+.setup-subtitle {
+    color: var(--muted);
+    margin: 18px 0 45px;
+    font-size: 15px;
+}
+
+.setup-title {
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.setup-description {
+    color: var(--muted);
+    margin-bottom: 25px;
+    font-size: 14px;
+}
+
+.name-input {
+    width: 100%;
+    padding: 19px 21px;
+    border-radius: 17px;
+    border: 1px solid rgba(139,92,246,0.35);
+    background: rgba(255,255,255,0.045);
+    color: white;
+    outline: none;
+    font-size: 17px;
+    margin-bottom: 15px;
+    transition: 0.25s;
+}
+
+.name-input:focus {
+    border-color: var(--cyan);
+    box-shadow: 0 0 0 4px rgba(34,211,238,0.08);
+}
+
+.continue-btn,
+.primary-btn {
+    width: 100%;
+    border: none;
+    border-radius: 17px;
+    padding: 18px;
+    font-size: 16px;
+    font-weight: 800;
+    color: white;
+    cursor: pointer;
+
+    background:
+        linear-gradient(
+            100deg,
+            var(--purple),
+            var(--blue),
+            var(--cyan)
+        );
+
+    background-size: 200%;
+    transition: 0.25s;
+}
+
+.continue-btn:hover,
+.primary-btn:hover {
+    transform: translateY(-2px);
+    background-position: right;
+    box-shadow: 0 15px 35px rgba(59,130,246,0.22);
+}
+
+.error {
+    color: var(--red);
+    font-size: 13px;
+    margin-bottom: 15px;
+    display: none;
+}
+
+/* =========================
+   PROFILE
+========================= */
+
+#profileScreen {
+    display: none;
+    min-height: 100vh;
+    padding: 35px 20px;
+}
+
+.profile-card {
+    max-width: 650px;
+    margin: auto;
+    padding: 42px;
+    border-radius: 30px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(20px);
+    box-shadow: var(--shadow);
+}
+
+.progress-top {
+    height: 5px;
+    background: rgba(255,255,255,0.07);
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 35px;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 66%;
+    background: linear-gradient(
+        90deg,
+        var(--purple),
+        var(--cyan)
+    );
+}
+
+.screen-label {
+    color: var(--cyan);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.profile-title {
+    font-size: 32px;
+    margin-bottom: 8px;
+}
+
+.profile-description {
+    color: var(--muted);
+    margin-bottom: 30px;
+}
+
+.field {
+    margin-bottom: 20px;
+}
+
+.field label {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 9px;
+}
+
+.field input,
+.field select {
+    width: 100%;
+    padding: 16px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.045);
+    border: 1px solid var(--border);
+    color: white;
+    outline: none;
+    font-size: 15px;
+}
+
+.field select option {
+    background: #12152a;
+    color: white;
+}
+
+.field input:focus,
+.field select:focus {
+    border-color: var(--purple);
+}
+
+/* =========================
+   DASHBOARD
+========================= */
+
+#dashboard {
+    display: none;
+    min-height: 100vh;
+    padding: 22px;
+}
+
+.app {
+    max-width: 1250px;
+    margin: auto;
+}
+
+.topbar {
+    height: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+}
+
+.brand {
+    font-family: "Cinzel", serif;
+    font-size: 25px;
+    font-weight: 800;
+    letter-spacing: 4px;
+
+    background: linear-gradient(
+        90deg,
+        #fff,
+        var(--cyan)
+    );
+
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.top-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.icon-btn {
+    width: 45px;
+    height: 45px;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,0.045);
+    color: white;
+    cursor: pointer;
+    font-size: 18px;
+    transition: 0.2s;
+}
+
+.icon-btn:hover {
+    background: rgba(139,92,246,0.18);
+    transform: translateY(-2px);
+}
+
+/* HERO */
+
+.hero {
+    padding: 38px;
+    border-radius: 30px;
+    border: 1px solid var(--border);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(139,92,246,0.16),
+            rgba(34,211,238,0.04)
+        ),
+        var(--card);
+
+    box-shadow: var(--shadow);
+    margin-bottom: 22px;
+    position: relative;
+    overflow: hidden;
+}
+
+.greeting-label {
+    color: var(--cyan);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.greeting {
+    font-size: clamp(30px, 5vw, 50px);
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.hero-text {
+    color: var(--muted);
+    font-size: 15px;
+}
+
+/* STATS */
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.stat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    padding: 24px;
+}
+
+.stat-label {
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.stat-value {
+    font-size: 34px;
+    font-weight: 800;
+    margin-top: 8px;
+}
+
+.stat-small {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+/* MAIN GRID */
+
+.main-grid {
+    display: grid;
+    grid-template-columns: 1.45fr 0.75fr;
+    gap: 22px;
+}
+
+.panel {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    padding: 28px;
+    box-shadow: var(--shadow);
+}
+
+.panel-title {
+    font-size: 27px;
+    font-family: "Cinzel", serif;
+    font-weight: 800;
+    margin-bottom: 5px;
+}
+
+.panel-subtitle {
+    color: var(--muted);
+    font-size: 13px;
+    margin-bottom: 25px;
+}
+
+/* TASKS */
+
+.task {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 17px;
+    border-radius: 17px;
+    background: rgba(255,255,255,0.035);
+    border: 1px solid transparent;
+    margin-bottom: 10px;
+    transition: 0.2s;
+}
+
+.task:hover {
+    border-color: rgba(139,92,246,0.25);
+    transform: translateX(2px);
+}
+
+.task-check {
+    width: 23px;
+    height: 23px;
+    border-radius: 8px;
+    border: 2px solid #596078;
+    cursor: pointer;
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.task.completed .task-check {
+    background: linear-gradient(
+        135deg,
+        var(--purple),
+        var(--cyan)
+    );
+
+    border-color: transparent;
+}
+
+.task.completed .task-check::after {
+    content: "✓";
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.task-name {
+    font-size: 14px;
+    font-weight: 600;
+    flex: 1;
+}
+
+.task.completed .task-name {
+    text-decoration: line-through;
+    color: #737991;
+}
+
+.delete-task {
+    background: transparent;
+    border: none;
+    color: #697088;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.delete-task:hover {
+    color: var(--red);
+}
+
+/* ADD TASK */
+
+.add-task {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.add-task input {
+    flex: 1;
+    min-width: 0;
+    padding: 14px;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,0.04);
+    color: white;
+    outline: none;
+}
+
+.add-task button {
+    padding: 14px 20px;
+    border: none;
+    border-radius: 14px;
+    background: var(--purple);
+    color: white;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+/* PROGRESS */
+
+.progress-circle {
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+    margin: 10px auto 25px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        conic-gradient(
+            var(--cyan) 0deg,
+            var(--purple) 0deg,
+            rgba(255,255,255,0.06) 0deg
+        );
+
+    position: relative;
+}
+
+.progress-circle::before {
+    content: "";
+    position: absolute;
+    width: 135px;
+    height: 135px;
+    background: #111426;
+    border-radius: 50%;
+}
+
+.progress-number {
+    position: relative;
+    z-index: 2;
+    font-size: 34px;
+    font-weight: 800;
+}
+
+/* PRAYER */
+
+.prayer {
+    margin-top: 22px;
+    display: none;
+}
+
+.prayer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.prayer-title {
+    font-size: 19px;
+    font-weight: 800;
+}
+
+.prayer-note {
+    font-size: 11px;
+    color: var(--muted);
+}
+
+.prayer-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 13px 15px;
+    background: rgba(255,255,255,0.035);
+    border-radius: 12px;
+    margin-bottom: 7px;
+}
+
+.prayer-name {
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.prayer-time {
+    color: var(--cyan);
+    font-weight: 700;
+    font-size: 13px;
+}
+
+/* PROFILE */
+
+.profile-mini {
+    display: none;
+    margin-top: 22px;
+}
+
+.profile-box {
+    background: rgba(255,255,255,0.035);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 18px;
+    margin-top: 20px;
+}
+
+.profile-box-title {
+    font-weight: 800;
+    margin-bottom: 7px;
+}
+
+.profile-box-text {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+/* TOAST */
+
+.toast {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    padding: 15px 20px;
+    border-radius: 15px;
+    background: #171b31;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+
+    transform: translateY(100px);
+    opacity: 0;
+
+    transition: 0.3s;
+    z-index: 100;
+    font-size: 13px;
+}
+
+.toast.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* ANIMATIONS */
+
+@keyframes gradientMove {
+
+    0% {
+        background-position: 0%;
+    }
+
+    50% {
+        background-position: 100%;
+    }
+
+    100% {
+        background-position: 0%;
+    }
+
+}
+
+@keyframes appear {
+
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+}
+
+/* MOBILE */
+
+@media (max-width: 850px) {
+
+    .main-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .setup-card {
+        padding: 40px 25px;
+    }
+
+    .profile-card {
+        padding: 28px 20px;
+    }
+
+    .hero {
+        padding: 28px 22px;
+    }
+
+    .panel {
+        padding: 22px;
+    }
+
+}
+
+@media (max-width: 500px) {
+
+    #dashboard {
+        padding: 12px;
+    }
+
+    .brand {
+        font-size: 20px;
+    }
+
+    .hero {
+        border-radius: 23px;
+    }
+
+    .panel {
+        border-radius: 23px;
+    }
+
+    .add-task {
+        flex-direction: column;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     START SCREEN
+========================= -->
+
+<section id="setupScreen">
+
+    <div class="setup-card">
+
+        <div class="logo-small">
+            WELCOME TO
+        </div>
+
+        <div class="big-logo">
+            TASORA
+        </div>
+
+        <div class="setup-subtitle">
+            Your day. Your goals. Your progress.
+        </div>
+
+        <div class="setup-title">
+            Let's get started.
+        </div>
+
+        <div class="setup-description">
+            What should Tasora call you?
+        </div>
+
+        <div id="nameError" class="error">
+            Please enter your name.
+        </div>
+
+        <input
+            id="startName"
+            class="name-input"
+            type="text"
+            placeholder="Enter your name..."
+            autocomplete="name"
+        >
+
+        <button
+            class="continue-btn"
+            onclick="startProfile()"
+        >
+            Continue →
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     PROFILE SETUP
+========================= -->
+
+<section id="profileScreen">
+
+    <div class="profile-card">
+
+        <div class="progress-top">
+            <div class="progress-fill"></div>
+        </div>
+
+        <div class="screen-label">
+            PERSONALIZE TASORA
+        </div>
+
+        <h1 class="profile-title">
+            Tell us a little more.
+        </h1>
+
+        <p class="profile-description">
+            Personalize your Tasora experience.
+        </p>
+
+        <div class="field">
+
+            <label>Your name</label>
+
+            <input
+                id="profileName"
+                type="text"
+            >
+
+        </div>
+
+        <div class="field">
+
+            <label>Your age</label>
+
+            <input
+                id="profileAge"
+                type="number"
+                min="1"
+                max="120"
+                placeholder="Optional"
+            >
+
+        </div>
+
+        <div class="field">
+
+            <label>Religion</label>
+
+            <select id="profileReligion">
+
+                <option value="">
+                    Prefer not to say
+                </option>
+
+                <option value="Muslim">
+                    Muslim
+                </option>
+
+                <option value="Christian">
+                    Christian
+                </option>
+
+                <option value="Hindu">
+                    Hindu
+                </option>
+
+                <option value="Sikh">
+                    Sikh
+                </option>
+
+                <option value="Other">
+                    Other
+                </option>
+
+            </select>
+
+        </div>
+
+        <button
+            class="primary-btn"
+            onclick="finishSetup()"
+        >
+            Enter Tasora →
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     DASHBOARD
+========================= -->
+
+<section id="dashboard">
+
+<div class="app">
+
+
+<header class="topbar">
+
+    <div class="brand">
+        TASORA
+    </div>
+
+    <div class="top-actions">
+
+        <button
+            class="icon-btn"
+            onclick="resetProfile()"
+            title="Profile"
+        >
+            👤
+        </button>
+
+        <button
+            class="icon-btn"
+            onclick="toggleTheme()"
+            title="Theme"
+        >
+            ☀
+        </button>
+
+    </div>
+
+</header>
+
+
+<section class="hero">
+
+    <div class="greeting-label">
+        TODAY
+    </div>
+
+    <h1
+        id="greeting"
+        class="greeting"
+    >
+        Good morning.
+    </h1>
+
+    <p class="hero-text">
+        Stay focused. Keep moving. Build your day.
+    </p>
+
+</section>
+
+
+<section class="stats">
+
+    <div class="stat-card">
+
+        <div class="stat-label">
+            Today's Progress
+        </div>
+
+        <div
+            id="progressStat"
+            class="stat-value"
+        >
+            0%
+        </div>
+
+        <div class="stat-small">
+            Keep going
+        </div>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <div class="stat-label">
+            Completed
+        </div>
+
+        <div
+            id="completedStat"
+            class="stat-value"
+        >
+            0
+        </div>
+
+        <div class="stat-small">
+            tasks completed
+        </div>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <div class="stat-label">
+            Remaining
+        </div>
+
+        <div
+            id="remainingStat"
+            class="stat-value"
+        >
+            7
+        </div>
+
+        <div class="stat-small">
+            tasks left today
+        </div>
+
+    </div>
+
+</section>
+
+
+<div class="main-grid">
+
+
+<section class="panel">
+
+    <h2 class="panel-title">
+        Today's Tasks
+    </h2>
+
+    <p class="panel-subtitle">
+        Seven small wins can change your whole day.
+    </p>
+
+    <div id="taskList"></div>
+
+
+    <div class="add-task">
+
+        <input
+            id="newTask"
+            type="text"
+            placeholder="Add a new task..."
+        >
+
+        <button onclick="addTask()">
+            + Add
+        </button>
+
+    </div>
+
+</section>
+
+
+<aside>
+
+
+<section class="panel">
+
+    <h2 class="panel-title">
+        Your Progress
+    </h2>
+
+    <p class="panel-subtitle">
+        Today's completion
+    </p>
+
+
+    <div
+        id="progressCircle"
+        class="progress-circle"
+    >
+
+        <div
+            id="progressNumber"
+            class="progress-number"
+        >
+            0%
+        </div>
+
+    </div>
+
+
+    <div
+        class="stat-small"
+        style="text-align:center;"
+    >
+        Complete your tasks to fill the circle.
+    </div>
+
+
+    <!-- PRAYER -->
+
+    <div
+        id="prayerSection"
+        class="prayer"
+    >
+
+        <div class="prayer-header">
+
+            <div class="prayer-title">
+                🕌 Prayer Times
+            </div>
+
+            <div class="prayer-note">
+                Sample schedule
+            </div>
+
+        </div>
+
+
+        <div class="prayer-item">
+            <span class="prayer-name">
+                Fajr
+            </span>
+
+            <span class="prayer-time">
+                05:00
+            </span>
+        </div>
+
+
+        <div class="prayer-item">
+            <span class="prayer-name">
+                Dhuhr
+            </span>
+
+            <span class="prayer-time">
+                13:00
+            </span>
+        </div>
+
+
+        <div class="prayer-item">
+            <span class="prayer-name">
+                Asr
+            </span>
+
+            <span class="prayer-time">
+                16:30
+            </span>
+        </div>
+
+
+        <div class="prayer-item">
+            <span class="prayer-name">
+                Maghrib
+            </span>
+
+            <span class="prayer-time">
+                18:00
+            </span>
+        </div>
+
+
+        <div class="prayer-item">
+            <span class="prayer-name">
+                Isha
+            </span>
+
+            <span class="prayer-time">
+                20:00
+            </span>
+        </div>
+
+
+        <button
+            class="primary-btn"
+            style="margin-top:12px;padding:13px;font-size:13px;"
+            onclick="enableNotifications()"
+        >
+            Enable Prayer Notifications
+        </button>
+
+    </div>
+
+</section>
+
+
+<section
+    class="panel profile-mini"
+    id="profileMini"
+>
+
+    <h2
+        class="panel-title"
+        style="font-size:21px;"
+    >
+        Your Profile
+    </h2>
+
+
+    <div class="profile-box">
+
+        <div
+            id="profileDisplayName"
+            class="profile-box-title"
+        >
+            User
+        </div>
+
+        <div
+            id="profileDisplayInfo"
+            class="profile-box-text"
+        >
+            Tasora user
+        </div>
+
+    </div>
+
+</section>
+
+
+</aside>
+
+</div>
+
+</div>
+
+</section>
+
+
+<div
+    id="toast"
+    class="toast"
+>
+    Saved!
+</div>
+
+
+<script>
+
+/* =========================
+   DEFAULT TASKS
+========================= */
+
+const defaultTasks = [
+
+    "Study for 30 minutes",
+
+    "Complete school homework",
+
+    "Review today's lessons",
+
+    "Exercise / stretch",
+
+    "Work on Tasora",
+
+    "Read for 20 minutes",
+
+    "Plan tomorrow"
+
+];
+
+
+let tasks = [];
+
+
+/* =========================
+   START PROFILE
+========================= */
+
+function startProfile() {
+
+    const name =
+        document
+        .getElementById("startName")
+        .value
+        .trim();
+
+    const error =
+        document.getElementById("nameError");
+
+
+    if (!name) {
+
+        error.style.display = "block";
+
+        document
+        .getElementById("startName")
+        .focus();
+
+        return;
+
+    }
+
+
+    error.style.display = "none";
+
+
+    document
+    .getElementById("profileName")
+    .value = name;
+
+
+    document
+    .getElementById("setupScreen")
+    .style.display = "none";
+
+
+    document
+    .getElementById("profileScreen")
+    .style.display = "block";
+
+}
+
+
+/* ENTER KEY */
+
+document
+.getElementById("startName")
+.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (event.key === "Enter") {
+
+            startProfile();
+
+        }
+
+    }
+);
+
+
+/* =========================
+   FINISH SETUP
+========================= */
+
+function finishSetup() {
+
+    const name =
+        document
+        .getElementById("profileName")
+        .value
+        .trim();
+
+    const age =
+        document
+        .getElementById("profileAge")
+        .value;
+
+    const religion =
+        document
+        .getElementById("profileReligion")
+        .value;
+
+
+    if (!name) {
+
+        return;
+
+    }
+
+
+    const profile = {
+
+        name: name,
+
+        age: age,
+
+        religion: religion
+
+    };
+
+
+    localStorage.setItem(
+        "tasoraProfile",
+        JSON.stringify(profile)
+    );
+
+
+    tasks =
+        defaultTasks.map(
+            function(task) {
+
+                return {
+
+                    text: task,
+
+                    completed: false
+
+                };
+
+            }
+        );
+
+
+    localStorage.setItem(
+        "tasoraTasks",
+        JSON.stringify(tasks)
+    );
+
+
+    showDashboard();
+
+}
+
+
+/* =========================
+   SHOW DASHBOARD
+========================= */
+
+function showDashboard() {
+
+    document
+    .getElementById("profileScreen")
+    .style.display = "none";
+
+
+    document
+    .getElementById("setupScreen")
+    .style.display = "none";
+
+
+    document
+    .getElementById("dashboard")
+    .style.display = "block";
+
+
+    loadProfile();
+
+    loadTasks();
+
+    updateDashboard();
+
+}
+
+
+/* =========================
+   LOAD PROFILE
+========================= */
+
+function loadProfile() {
+
+    const saved =
+        localStorage.getItem(
+            "tasoraProfile"
+        );
+
+
+    if (!saved) {
+
+        return;
+
+    }
+
+
+    const profile =
+        JSON.parse(saved);
+
+
+    const name =
+        profile.name || "Friend";
+
+
+    if (profile.religion === "Muslim") {
+
+        document
+        .getElementById("greeting")
+        .textContent =
+            "Assalamualaikum " +
+            name +
+            " 👋";
+
+
+        document
+        .getElementById("prayerSection")
+        .style.display = "block";
+
+    }
+
+    else {
+
+        document
+        .getElementById("greeting")
+        .textContent =
+            "Good morning, " +
+            name +
+            " 👋";
+
+
+        document
+        .getElementById("prayerSection")
+        .style.display = "none";
+
+    }
+
+
+    document
+    .getElementById("profileDisplayName")
+    .textContent = name;
+
+
+    let info = "";
+
+
+    if (profile.age) {
+
+        info +=
+            "Age " +
+            profile.age;
+
+    }
+
+
+    if (profile.religion) {
+
+        if (info) {
+
+            info += " • ";
+
+        }
+
+        info += profile.religion;
+
+    }
+
+
+    if (!info) {
+
+        info = "Tasora user";
+
+    }
+
+
+    document
+    .getElementById("profileDisplayInfo")
+    .textContent = info;
+
+
+    document
+    .getElementById("profileMini")
+    .style.display = "block";
+
+}
+
+
+/* =========================
+   LOAD TASKS
+========================= */
+
+function loadTasks() {
+
+    const savedTasks =
+        localStorage.getItem(
+            "tasoraTasks"
+        );
+
+
+    if (savedTasks) {
+
+        tasks =
+            JSON.parse(savedTasks);
+
+    }
+
+    else {
+
+        tasks =
+            defaultTasks.map(
+                function(task) {
+
+                    return {
+
+                        text: task,
+
+                        completed: false
+
+                    };
+
+                }
+            );
+
+    }
+
+
+    renderTasks();
+
+}
+
+
+/* =========================
+   RENDER TASKS
+========================= */
+
+function renderTasks() {
+
+    const list =
+        document.getElementById(
+            "taskList"
+        );
+
+
+    list.innerHTML = "";
+
+
+    tasks.forEach(
+        function(task, index) {
+
+            const taskElement =
+                document.createElement("div");
+
+
+            taskElement.className =
+                "task" +
+                (
+                    task.completed
+                    ? " completed"
+                    : ""
+                );
+
+
+            taskElement.innerHTML = `
+
+                <div
+                    class="task-check"
+                    onclick="toggleTask(${index})"
+                ></div>
+
+                <div class="task-name">
+                    ${escapeHTML(task.text)}
+                </div>
+
+                <button
+                    class="delete-task"
+                    onclick="deleteTask(${index})"
+                >
+                    ×
+                </button>
+
+            `;
+
+
+            list.appendChild(
+                taskElement
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================
+   TOGGLE TASK
+========================= */
+
+function toggleTask(index) {
+
+    tasks[index].completed =
+        !tasks[index].completed;
+
+
+    saveTasks();
+
+    renderTasks();
+
+    updateDashboard();
+
+}
+
+
+/* =========================
+   ADD TASK
+========================= */
+
+function addTask() {
+
+    const input =
+        document.getElementById(
+            "newTask"
+        );
+
+
+    const text =
+        input.value.trim();
+
+
+    if (!text) {
+
+        return;
+
+    }
+
+
+    tasks.push({
+
+        text: text,
+
+        completed: false
+
+    });
+
+
+    input.value = "";
+
+
+    saveTasks();
+
+    renderTasks();
+
+    updateDashboard();
+
+    showToast("Task added ✓");
+
+}
+
+
+/* =========================
+   ENTER TO ADD TASK
+========================= */
+
+document
+.getElementById("newTask")
+.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (event.key === "Enter") {
+
+            addTask();
+
+        }
+
+    }
+);
+
+
+/* =========================
+   DELETE TASK
+========================= */
+
+function deleteTask(index) {
+
+    tasks.splice(index, 1);
+
+    saveTasks();
+
+    renderTasks();
+
+    updateDashboard();
+
+    showToast("Task removed");
+
+}
+
+
+/* =========================
+   SAVE TASKS
+========================= */
+
+function saveTasks() {
+
+    localStorage.setItem(
+        "tasoraTasks",
+        JSON.stringify(tasks)
+    );
+
+}
+
+
+/* =========================
+   UPDATE DASHBOARD
+========================= */
+
+function updateDashboard() {
+
+    const total =
+        tasks.length;
+
+
+    const completed =
+        tasks.filter(
+            function(task) {
+
+                return task.completed;
+
+            }
+        ).length;
+
+
+    const remaining =
+        total - completed;
+
+
+    const percent =
+        total === 0
+        ? 0
+        : Math.round(
+            (completed / total) * 100
+        );
+
+
+    document
+    .getElementById("progressStat")
+    .textContent =
+        percent + "%";
+
+
+    document
+    .getElementById("completedStat")
+    .textContent =
+        completed;
+
+
+    document
+    .getElementById("remainingStat")
+    .textContent =
+        remaining;
+
+
+    document
+    .getElementById("progressNumber")
+    .textContent =
+        percent + "%";
+
+
+    const circle =
+        document.getElementById(
+            "progressCircle"
+        );
+
+
+    circle.style.background =
+        `conic-gradient(
+            var(--cyan) 0deg,
+            var(--purple) ${percent * 3.6}deg,
+            rgba(255,255,255,0.06) ${percent * 3.6}deg
+        )`;
+
+}
+
+
+/* =========================
+   PROFILE
+========================= */
+
+function resetProfile() {
+
+    const profile =
+        JSON.parse(
+            localStorage.getItem(
+                "tasoraProfile"
+            ) || "{}"
+        );
+
+
+    document
+    .getElementById("dashboard")
+    .style.display = "none";
+
+
+    document
+    .getElementById("profileScreen")
+    .style.display = "block";
+
+
+    document
+    .getElementById("profileName")
+    .value =
+        profile.name || "";
+
+
+    document
+    .getElementById("profileAge")
+    .value =
+        profile.age || "";
+
+
+    document
+    .getElementById("profileReligion")
+    .value =
+        profile.religion || "";
+
+}
+
+
+/* =========================
+   THEME
+========================= */
+
+let lightMode = false;
+
+
+function toggleTheme() {
+
+    lightMode =
+        !lightMode;
+
+
+    if (lightMode) {
+
+        document.documentElement
+        .style
+        .setProperty(
+            "--bg",
+            "#eef2ff"
+        );
+
+
+        document.documentElement
+        .style
+        .setProperty(
+            "--text",
+            "#101322"
+        );
+
+
+        document.documentElement
+        .style
+        .setProperty(
+            "--muted",
+            "#5f6680"
+        );
+
+
+        document.documentElement
+        .style
+        .setProperty(
+            "--card",
+            "rgba(255,255,255,0.85)"
+        );
+
+
+        showToast(
+            "Light mode"
+        );
+
+    }
+
+    else {
+
+        document.documentElement
+        .style
+        .setProperty(
+            "--bg",
+            "#070914"
+        );
+
+
+        document.documentElement
+        .style
+        .setProperty(
+            "--text",
+            "#f7f8ff"
+        );
+
+
+        document.documentElement
+        .style
+        .setProperty(
+            "--muted",
+            "#9298b5"
+        );
+
+
+        document.documentElement
+        .style
+        .setProperty(
+            "--card",
+            "rgba(18,21,40,0.86)"
+        );
+
+
+        showToast(
+            "Dark mode"
+        );
+
+    }
+
+}
+
+
+/* =========================
+   NOTIFICATIONS
+========================= */
+
+function enableNotifications() {
+
+    if (!("Notification" in window)) {
+
+        showToast(
+            "Notifications aren't supported here."
+        );
+
+        return;
+
+    }
+
+
+    Notification
+    .requestPermission()
+    .then(
+        function(permission) {
+
+            if (
+                permission ===
+                "granted"
+            ) {
+
+                new Notification(
+                    "TASORA 🕌",
+                    {
+                        body:
+                            "Prayer notifications are enabled."
+                    }
+                );
+
+
+                showToast(
+                    "Notifications enabled ✓"
+                );
+
+            }
+
+            else {
+
+                showToast(
+                    "Notification permission was not granted."
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================
+   TOAST
+========================= */
+
+function showToast(message) {
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+
+    toast.textContent =
+        message;
+
+
+    toast.classList.add(
+        "show"
+    );
+
+
+    setTimeout(
+        function() {
+
+            toast.classList.remove(
+                "show"
+            );
+
+        },
+        2200
+    );
+
+}
+
+
+/* =========================
+   SAFE TEXT
+========================= */
+
+function escapeHTML(text) {
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+
+    div.textContent =
+        text;
+
+
+    return div.innerHTML;
+
+}
+
+
+/* =========================
+   STARTUP
+========================= */
+
+window.addEventListener(
+    "load",
+    function() {
+
+        const savedProfile =
+            localStorage.getItem(
+                "tasoraProfile"
+            );
+
+
+        if (savedProfile) {
+
+            showDashboard();
+
+        }
+
+        else {
+
+            document
+            .getElementById(
+                "setupScreen"
+            )
+            .style.display =
+                "flex";
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>

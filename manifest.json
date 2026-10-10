@@ -1,0 +1,10 @@
+{
+  "name": "TASORA",
+  "short_name": "TASORA",
+  "description": "Your day. Your goals. Your progress.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#070914",
+  "theme_color": "#070914",
+  "orientation": "portrait-primary"
+}
